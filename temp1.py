@@ -5,7 +5,11 @@ import threading
 # 비동기 함수 a 정의
 async def async_function_a():
     print("Function a is called.")
-    await asyncio.sleep(0)  # 실제 비동기 작업이 있을 때 대체
+    # await asyncio.sleep(0)  # 실제 비동기 작업이 있을 때 대체
+
+    await asyncio.sleep(1)  # 1초 동안 대기
+    print("Function a is done.")
+
 
 # 이벤트 루프를 별도 스레드에서 실행
 def start_event_loop(loop):
