@@ -27,8 +27,11 @@ def main():
     t.start()
 
     frame_count = 0
+    stop_requested = False
 
-    while cap.isOpened():
+    # while cap.isOpened() and not stop_requested:
+    while not stop_requested:
+        # print(stop_requested)
         ret, frame = cap.read()
         if not ret:
             break
@@ -41,10 +44,12 @@ def main():
             call_async_function(new_loop)
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
+            stop_requested = True
 
     cap.release()
     cv2.destroyAllWindows()
+
+    # 이벤트 루프 중지 요청
     new_loop.call_soon_threadsafe(new_loop.stop)
     t.join()
 
